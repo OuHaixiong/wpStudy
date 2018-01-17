@@ -4310,7 +4310,7 @@ function force_ssl_admin( $force = null ) {
  *
  * @since 2.6.0
  *
- * @return string The guessed URL.
+ * @return string The guessed URL. 返回域名，类似：http://wp.cn
  */
 function wp_guess_url() {
 	if ( defined('WP_SITEURL') && '' != WP_SITEURL ) {
