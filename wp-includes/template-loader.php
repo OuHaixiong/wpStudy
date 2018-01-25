@@ -41,8 +41,8 @@ elseif ( is_trackback() ) :
 	return;
 endif;
 
-if ( defined('WP_USE_THEMES') && WP_USE_THEMES ) :
-	$template = false;
+if ( defined('WP_USE_THEMES') && WP_USE_THEMES ) : // 使用了主题
+	$template = false; // 下面判断请求是否为post或page或archive，就获取对应的模板文件
 	if     ( is_embed()          && $template = get_embed_template()          ) :
 	elseif ( is_404()            && $template = get_404_template()            ) :
 	elseif ( is_search()         && $template = get_search_template()         ) :
@@ -59,7 +59,7 @@ if ( defined('WP_USE_THEMES') && WP_USE_THEMES ) :
 	elseif ( is_tag()            && $template = get_tag_template()            ) :
 	elseif ( is_author()         && $template = get_author_template()         ) :
 	elseif ( is_date()           && $template = get_date_template()           ) :
-	elseif ( is_archive()        && $template = get_archive_template()        ) :
+	elseif ( is_archive()        && $template = get_archive_template()        ) : // 是存档
 	else :
 		$template = get_index_template();
 	endif;
