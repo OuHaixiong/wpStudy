@@ -1,7 +1,7 @@
 <?php
 /**
  * WordPress Rewrite API
- *
+ * URL重写相关函数
  * @package WordPress
  * @subpackage Rewrite
  */

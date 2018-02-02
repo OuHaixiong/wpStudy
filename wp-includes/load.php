@@ -1,7 +1,7 @@
 <?php
 /**
  * These functions are needed to load WordPress.
- *
+ * 全是函数，主要用于定义一些wp可能会用到的一些函数
  * @package WordPress
  */
 
@@ -22,7 +22,7 @@ function wp_get_server_protocol() {
 
 /**
  * Turn register globals off.
- *
+ * 关闭全局注册变量
  * @since 2.1.0
  * @access private
  */
@@ -45,7 +45,7 @@ function wp_unregister_GLOBALS() {
 
 /**
  * Fix `$_SERVER` variables for various setups.
- *
+ * 规范$_SERVER
  * @since 3.0.0
  * @access private
  *
@@ -158,7 +158,7 @@ function wp_favicon_request() {
 
 /**
  * Die with a maintenance message when conditions are met.
- *
+ * 判断是否处于维护模式
  * Checks for a file in the WordPress root directory named ".maintenance".
  * This file will contain the variable $upgrading, set to the time the file
  * was created. If the file was created less than 10 minutes ago, WordPress
@@ -271,7 +271,7 @@ function timer_stop( $display = 0, $precision = 3 ) {
 
 /**
  * Set PHP error reporting based on WordPress debug settings.
- *
+ * 判断是否处于debug模式
  * Uses three constants: `WP_DEBUG`, `WP_DEBUG_DISPLAY`, and `WP_DEBUG_LOG`.
  * All three can be defined in wp-config.php. By default, `WP_DEBUG` and
  * `WP_DEBUG_LOG` are set to false, and `WP_DEBUG_DISPLAY` is set to true.
@@ -340,7 +340,7 @@ function wp_debug_mode() {
 
 /**
  * Set the location of the language directory.
- *
+ * 设置语言包目录
  * To set directory manually, define the `WP_LANG_DIR` constant
  * in wp-config.php.
  *

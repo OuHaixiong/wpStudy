@@ -8,7 +8,8 @@
 
 /**
  * Retrieves an option value based on an option name.
- *
+ * 返回表options中的一条记录，即通过设置项，获取对应的值
+ * 选项如：blogname、blogdescription、home、posts_per_page等
  * If the option does not exist or does not have a value, then the return value
  * will be false. This is useful to check whether you need to install an option
  * and is commonly used during installation of plugin options and to test
@@ -24,7 +25,7 @@
  * @global wpdb $wpdb WordPress database abstraction object.
  *
  * @param string $option  Name of option to retrieve. Expected to not be SQL-escaped.
- * @param mixed  $default Optional. Default value to return if the option does not exist.
+ * @param mixed  $default Optional. Default value to return if the option does not exist. 如果无此选项或选项无值则返回默认值
  * @return mixed Value set for the option.
  */
 function get_option( $option, $default = false ) {
@@ -150,7 +151,7 @@ function get_option( $option, $default = false ) {
 
 /**
  * Protect WordPress special option from being modified.
- *
+ * 保护WordPress特殊选项不被修改，即默认值不能修改
  * Will die if $option is in protected list. Protected options are 'alloptions'
  * and 'notoptions' options.
  *
@@ -165,7 +166,7 @@ function wp_protect_special_option( $option ) {
 
 /**
  * Print option value after sanitizing for forms.
- *
+ * 获取一个选项值，并进行格式处理（即对<>"'&进行转义）
  * @since 1.5.0
  *
  * @param string $option Option name.

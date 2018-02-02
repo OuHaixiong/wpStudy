@@ -305,7 +305,7 @@ function wp_ssl_constants() {
 
 /**
  * Defines functionality related WordPress constants
- *
+ * 定义功能常量
  * @since 3.0.0
  */
 function wp_functionality_constants() {
@@ -333,7 +333,7 @@ function wp_functionality_constants() {
 
 /**
  * Defines templating related WordPress constants
- *
+ * 定义模板相关常量
  * @since 3.0.0
  */
 function wp_templating_constants() {

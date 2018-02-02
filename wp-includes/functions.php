@@ -1,7 +1,7 @@
 <?php
 /**
  * Main WordPress API
- *
+ * 函数库（也是所有的wordpress接口函数）
  * @package WordPress
  */
 

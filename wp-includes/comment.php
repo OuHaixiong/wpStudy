@@ -1,7 +1,7 @@
 <?php
 /**
  * Core Comment API
- *
+ * 评论模板相关函数
  * @package WordPress
  * @subpackage Comment
  */

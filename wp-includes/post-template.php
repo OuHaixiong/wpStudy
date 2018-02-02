@@ -1,7 +1,7 @@
 <?php
 /**
  * WordPress Post Template Functions.
- *
+ * 文章模板函数
  * Gets content for the current post in the loop.
  *
  * @package WordPress

@@ -1,7 +1,7 @@
 <?php
 /**
  * WordPress Query API
- *
+ * 数据请求
  * The query API attempts to get which part of WordPress the user is on. It
  * also provides functionality for getting URL query information.
  *

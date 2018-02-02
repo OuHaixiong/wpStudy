@@ -93,6 +93,7 @@ if ( WP_CACHE && apply_filters( 'enable_loading_advanced_cache_dropin', true ) )
 wp_set_lang_dir();
 
 // Load early WordPress files.
+// 提供某些旧php版本缺少或默认不包含的函数（用于支持不同版本php上的兼容和移植）
 require( ABSPATH . WPINC . '/compat.php' );
 require( ABSPATH . WPINC . '/class-wp-list-util.php' );
 require( ABSPATH . WPINC . '/functions.php' );

@@ -709,12 +709,12 @@ class WP {
 	 * @param string|array $query_args Passed to parse_request().
 	 */
 	public function main($query_args = '') {
-		$this->init();
-		$this->parse_request($query_args);
-		$this->send_headers();
-		$this->query_posts();
-		$this->handle_404();
-		$this->register_globals();
+		$this->init();                     // 初始化环境
+		$this->parse_request($query_args); // 解析请求
+		$this->send_headers();             // 发送头信息
+		$this->query_posts();              // 查询日志
+		$this->handle_404();               // 操作404（如果URL地址不存在）
+		$this->register_globals();         // 注册全局变量
 
 		/**
 		 * Fires once the WordPress environment has been set up.

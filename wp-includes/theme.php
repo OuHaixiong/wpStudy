@@ -1,7 +1,7 @@
 <?php
 /**
  * Theme, template, and stylesheet functions.
- *
+ * 加载主题文件相关函数
  * @package WordPress
  * @subpackage Theme
  */
@@ -162,7 +162,7 @@ function get_stylesheet() {
 
 /**
  * Retrieve stylesheet directory path for current theme.
- *
+ * 返回当前样式表所在目录的绝对路径
  * @since 1.5.0
  *
  * @return string Path to current theme directory.
@@ -295,7 +295,7 @@ function get_template() {
 
 /**
  * Retrieve current theme directory.
- *
+ * 返回当前主题安装目录的绝对路径
  * @since 1.5.0
  *
  * @return string Template directory path.
