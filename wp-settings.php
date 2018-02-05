@@ -26,7 +26,7 @@ require_once( ABSPATH . WPINC . '/plugin.php' );
  * these values to be overridden if already set.
  */
 global $wp_version, $wp_db_version, $tinymce_version, $required_php_version, $required_mysql_version, $wp_local_package;
-require( ABSPATH . WPINC . '/version.php' );
+require( ABSPATH . WPINC . '/version.php' ); // 加载version.php文件，该文件无执行代码，主要定义一些跟WordPress版本等相关的常量，包括WP版本、PHP版本、MySQL版本、默认本地语言包等
 
 /**
  * If not already configured, `$blog_id` will default to 1 in a single site
@@ -38,17 +38,18 @@ require( ABSPATH . WPINC . '/version.php' );
 global $blog_id;
 
 // Set initial default constants including WP_MEMORY_LIMIT, WP_MAX_MEMORY_LIMIT, WP_DEBUG, SCRIPT_DEBUG, WP_CONTENT_DIR and WP_CACHE.
-wp_initial_constants();
+wp_initial_constants(); // 初始化一些常量，如：内存、DEBUG、缓存等
 
 // Check for the required PHP version and for the MySQL extension or a database drop-in.
 wp_check_php_mysql_versions();
 
 // Disable magic quotes at runtime. Magic quotes are added using wpdb later in wp-settings.php.
+// 运行时禁用魔术引用，魔术引用放在wp-settings.php使用wpdb之后
 @ini_set( 'magic_quotes_runtime', 0 );
 @ini_set( 'magic_quotes_sybase',  0 );
 
 // WordPress calculates offsets from UTC.
-date_default_timezone_set( 'UTC' );
+date_default_timezone_set( 'UTC' ); // 设置时区；
 
 // Turn register_globals off.
 wp_unregister_GLOBALS();
@@ -57,10 +58,10 @@ wp_unregister_GLOBALS();
 wp_fix_server_vars();
 
 // Check if we have received a request due to missing favicon.ico
-wp_favicon_request();
+wp_favicon_request(); // 检查是否收到由于缺少favicon.ico而产生的请求
 
 // Check if we're in maintenance mode.
-wp_maintenance();
+wp_maintenance(); // 判断是否处于维护升级模式
 
 // Start loading timer.
 timer_start();
@@ -126,7 +127,8 @@ if ( is_multisite() ) {
 	define( 'MULTISITE', false );
 }
 
-register_shutdown_function( 'shutdown_action_hook' );
+register_shutdown_function( 'shutdown_action_hook' ); // 注册一个 callback ，它会在脚本执行完成或者 exit() 后被调用。
+// PHP中止的情况有三种：1, 执行完成   2, exit/die导致的中止  3, 发生致命错误中止
 
 // Stop most of WordPress from being loaded if we just want the basics.
 if ( SHORTINIT )

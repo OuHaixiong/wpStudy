@@ -9,7 +9,7 @@ require( ABSPATH . WPINC . '/option.php' );
 
 /**
  * Convert given date string into a different format.
- *
+ * 将给定的日期字符串转换为指定格式
  * $format should be either a PHP date format string, e.g. 'U' for a Unix
  * timestamp, or 'G' for a Unix timestamp assuming that $date is GMT.
  *
@@ -43,7 +43,7 @@ function mysql2date( $format, $date, $translate = true ) {
 
 /**
  * Retrieve the current time based on specified type.
- *
+ * 返回特定类型的当前时间
  * The 'mysql' type will return the time in the format for MySQL DATETIME field.
  * The 'timestamp' type will return the current timestamp.
  * Other strings will be interpreted as PHP date formats (e.g. 'Y-m-d').
@@ -238,7 +238,7 @@ function number_format_i18n( $number, $decimals = 0 ) {
 
 /**
  * Convert number of bytes largest unit bytes will fit into.
- *
+ * 自动根据字节转换为人类较易识别文件大小，如MB、GB等
  * It is easier to read 1 KB than 1024 bytes and 1 MB than 1048576 bytes. Converts
  * number of bytes to human readable number by taking the number of that unit
  * that the bytes will go into it. Supports TB value.
@@ -280,7 +280,7 @@ function size_format( $bytes, $decimals = 0 ) {
 
 /**
  * Get the week start and end from the datetime or date string from MySQL.
- *
+ * 从MySQL数据库中获取一周开始和结束的日期
  * @since 0.71
  *
  * @param string     $mysqlstring   Date or datetime field type from MySQL.
@@ -450,7 +450,7 @@ function maybe_serialize( $data ) {
 
 /**
  * Retrieve post title from XMLRPC XML.
- *
+ * 若指定内容中有标题则提取，无则自动从文章中提取
  * If the title element is not part of the XML, then the default post title from
  * the $post_default_title will be used instead.
  *
@@ -473,7 +473,7 @@ function xmlrpc_getposttitle( $content ) {
 
 /**
  * Retrieve the post category or categories from XMLRPC XML.
- *
+ * 指定内容中有分类则提取，无则采用默认分类
  * If the category element is not found, then the default post category will be
  * used. The return type then would be what $post_default_category. If the
  * category is found, then it will always be an array.
@@ -544,7 +544,7 @@ function wp_extract_urls( $content ) {
 
 /**
  * Check content for video and audio links to add as enclosures.
- *
+ * 检查内容中视频音频等链接是否以附件形式存在
  * Will not add enclosures that have already been added and will
  * remove enclosures that are no longer in the post. This is called as
  * pingbacks and trackbacks.
@@ -634,7 +634,7 @@ function do_enclose( $content, $post_ID ) {
 
 /**
  * Retrieve HTTP Headers from URL.
- *
+ * 执行HTTP头或GET请求
  * @since 1.5.1
  *
  * @param string $url        URL to retrieve HTTP headers from.
@@ -946,7 +946,7 @@ function wp_remote_fopen( $uri ) {
 
 /**
  * Set up the WordPress query.
- *
+ * 设置WP查询
  * @since 2.0.0
  *
  * @global WP       $wp_locale
@@ -965,7 +965,7 @@ function wp( $query_vars = '' ) {
 
 /**
  * Retrieve the description for the HTTP status.
- *
+ * 返回HTTP状态描述
  * @since 2.3.0
  *
  * @global array $wp_header_to_desc
@@ -1054,7 +1054,7 @@ function get_status_header_desc( $code ) {
 
 /**
  * Set HTTP status header.
- *
+ * 设置HTTP头状态
  * @since 2.0.0
  * @since 4.4.0 Added the `$description` parameter.
  *
@@ -1205,7 +1205,7 @@ function bool_from_yn( $yn ) {
 
 /**
  * Load the feed template from the use of an action hook.
- *
+ * 使用动作钩加载feed模板
  * If the feed action does not have a hook, then the function will die with a
  * message telling the visitor that the feed is not valid.
  *
@@ -1258,7 +1258,7 @@ function do_feed_rdf() {
 
 /**
  * Load the RSS 1.0 Feed Template.
- *
+ * 加载RSS Feed模板
  * @since 2.1.0
  *
  * @see load_template()
@@ -1301,7 +1301,7 @@ function do_feed_atom( $for_comments ) {
 
 /**
  * Display the robots.txt file content.
- *
+ * 生成自定义robots.txt文件时使用
  * The echo content should be with usage of the permalinks or for creating the
  * robots.txt file.
  *
@@ -1341,7 +1341,7 @@ function do_robots() {
 
 /**
  * Test whether WordPress is already installed.
- *
+ * 检测博客是否已经安装过
  * The cache will be checked first. If you have a cache plugin, which saves
  * the cache values, then this will work. If you use the default WordPress
  * cache, and the database goes away, then you might have problems.
@@ -1578,7 +1578,7 @@ function wp_get_original_referer() {
 
 /**
  * Recursive directory creation based on full path.
- *
+ * 根据全路径创建目录
  * Will attempt to set permissions on folders.
  *
  * @since 2.0.1
@@ -1647,7 +1647,7 @@ function wp_mkdir_p( $target ) {
 
 /**
  * Test if a given filesystem path is absolute.
- *
+ * 检测所给路径是否为绝对路径
  * For example, '/foo/bar', or 'c:\windows'.
  *
  * @since 2.5.0
@@ -1831,7 +1831,7 @@ function wp_get_upload_dir() {
 
 /**
  * Get an array containing the current upload directory's path and url.
- *
+ * 获取上传路径和URL的数组
  * Checks the 'upload_path' option, which should be from the web root folder,
  * and if it isn't empty it will be used. If it is empty, then the path will be
  * 'WP_CONTENT_DIR/uploads'. If the 'UPLOADS' constant is defined, then it will
@@ -2218,7 +2218,7 @@ function wp_ext2type( $ext ) {
 
 /**
  * Retrieve the file type from the file name.
- *
+ * 获取文件类型
  * You can optionally define the mime array, if needed.
  *
  * @since 2.0.4
@@ -2618,7 +2618,7 @@ function wp_nonce_ays( $action ) {
 
 /**
  * Kill WordPress execution and display HTML message with error message.
- *
+ * 中止WP执行并输出错误提示，它可处理AJAX、XMLRPC等进程中的错误
  * This function complements the `die()` PHP function. The difference is that
  * HTML will be displayed to the user. It is recommended to use this function
  * only when the execution should not continue any further. It is not recommended
@@ -2693,7 +2693,7 @@ function wp_die( $message = '', $title = '', $args = array() ) {
 
 /**
  * Kills WordPress execution and display HTML message with error message.
- *
+ * 这是wp_die()中处理默认错误时调用的函数
  * This is the default handler for wp_die if you want a custom one for your
  * site then you can overload using the {@see 'wp_die_handler'} filter in wp_die().
  *
@@ -2919,7 +2919,7 @@ function _xmlrpc_wp_die_handler( $message, $title = '', $args = array() ) {
 
 /**
  * Kill WordPress ajax execution.
- *
+ * 这是wp_die()中处理AJAX程序时调用的函数
  * This is the handler for wp_die when processing Ajax requests.
  *
  * @since 3.4.0
@@ -3255,7 +3255,7 @@ function wp_check_jsonp_callback( $callback ) {
 
 /**
  * Retrieve the WordPress home page URL.
- *
+ * 检索WP主页URL
  * If the constant named 'WP_HOME' exists, then it will be used and returned
  * by the function. This can be used to counter the redirection on your local
  * development environment.
@@ -3342,7 +3342,7 @@ function _mce_set_direction( $mce_init ) {
 
 /**
  * Convert smiley code to the icon graphic file equivalent.
- *
+ * 表情代码转换
  * You can turn off smilies, by going to the write setting screen and unchecking
  * the box, or by setting 'use_smilies' option to false or removing the option.
  *
@@ -3602,7 +3602,7 @@ function wp_filter_object_list( $list, $args = array(), $operator = 'and', $fiel
 
 /**
  * Filters a list of objects, based on a set of key => value arguments.
- *
+ * 过滤列表对象
  * @since 3.1.0
  * @since 4.7.0 Uses WP_List_Util class.
  *
@@ -3626,7 +3626,7 @@ function wp_list_filter( $list, $args = array(), $operator = 'AND' ) {
 
 /**
  * Pluck a certain field out of each object in a list.
- *
+ * 获取列表中某个对象
  * This has the same functionality and prototype of
  * array_column() (PHP 5.5) but also supports objects.
  *
@@ -3671,7 +3671,7 @@ function wp_list_sort( $list, $orderby = array(), $order = 'ASC', $preserve_keys
 
 /**
  * Determines if Widgets library should be loaded.
- *
+ * 确定是否加载小部件
  * Checks to make sure that the widgets library hasn't already been loaded.
  * If it hasn't, then it will load the widgets library and run an action hook.
  *
@@ -3730,7 +3730,7 @@ function wp_ob_end_flush_all() {
 
 /**
  * Load custom DB error or display WordPress DB error.
- *
+ * 显示数据库错误信息
  * If a file exists in the wp-content directory named db-error.php, then it will
  * be loaded instead of displaying the WordPress DB error. If it is not found,
  * then the WordPress DB error will be displayed instead.
@@ -3979,7 +3979,7 @@ function _deprecated_file( $file, $version, $replacement = null, $message = '' )
 }
 /**
  * Mark a function argument as deprecated and inform when it has been used.
- *
+ * 标记评论状态
  * This function is to be used whenever a deprecated function argument is used.
  * Before this function is called, the argument must be checked for whether it was
  * used by comparing it to its default value or evaluating whether it is empty.
@@ -4173,7 +4173,7 @@ function is_lighttpd_before_150() {
 
 /**
  * Does the specified module exist in the Apache config?
- *
+ * 判断Apache配置中是否存在指定模块
  * @since 2.5.0
  *
  * @global bool $is_apache

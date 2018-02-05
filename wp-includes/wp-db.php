@@ -1,7 +1,8 @@
 <?php
 /**
  * WordPress DB Class
- *
+ * 数据库类
+ * 设定数据库表前缀，连接数据库，选择数据库，创建数据库sql语句模板（如：select、insert、update等数据库操作语句模板），执行的sql都由该类实现
  * Original code from {@link http://php.justinvincent.com Justin Vincent (justin@visunet.ie)}
  *
  * @package WordPress
@@ -850,7 +851,7 @@ class wpdb {
 
 	/**
 	 * Sets the table prefix for the WordPress tables.
-	 *
+	 * 设置表前缀
 	 * @since 2.5.0
 	 *
 	 * @param string $prefix          Alphanumeric name for the new prefix.

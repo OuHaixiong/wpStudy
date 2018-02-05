@@ -45,7 +45,7 @@ function wp_unregister_GLOBALS() {
 
 /**
  * Fix `$_SERVER` variables for various setups.
- * 规范$_SERVER
+ * 规范$_SERVER(准备$_SERVER变量)
  * @since 3.0.0
  * @access private
  *
@@ -109,7 +109,7 @@ function wp_fix_server_vars() {
 /**
  * Check for the required PHP version, and the MySQL extension or
  * a database drop-in.
- *
+ * 检查php&mysql版本是否兼容
  * Dies if requirements are not met.
  *
  * @since 3.0.0
@@ -144,7 +144,7 @@ function wp_check_php_mysql_versions() {
 
 /**
  * Don't load all of WordPress when handling a favicon.ico request.
- *
+ * 如果是请求/favicon.ico，直接返回
  * Instead, send the headers for a zero-length favicon and bail.
  *
  * @since 3.0.0
@@ -385,7 +385,7 @@ function wp_set_lang_dir() {
 
 /**
  * Load the database class file and instantiate the `$wpdb` global.
- *
+ * 加载数据库类文件wp-db.php并定义全局变量$wpdb
  * @since 2.5.0
  *
  * @global wpdb $wpdb The WordPress database class.
@@ -405,9 +405,8 @@ function require_wp_db() {
 }
 
 /**
- * Set the database table prefix and the format specifiers for database
- * table columns.
- *
+ * Set the database table prefix and the format specifiers for database table columns.
+ * 设定数据库表前缀和数据库表列的格式分割符
  * Columns not listed here default to `%s`.
  *
  * @since 3.0.0
@@ -464,7 +463,7 @@ function wp_using_ext_object_cache( $using = null ) {
 
 /**
  * Start the WordPress object cache.
- *
+ * 开启wp对象缓存
  * If an object-cache.php file exists in the wp-content directory,
  * it uses that drop-in as an external object cache.
  *
@@ -478,7 +477,7 @@ function wp_start_object_cache() {
 
 	$first_init = false;
  	if ( ! function_exists( 'wp_cache_init' ) ) {
-		if ( file_exists( WP_CONTENT_DIR . '/object-cache.php' ) ) {
+		if ( file_exists( WP_CONTENT_DIR . '/object-cache.php' ) ) { // 如果wp-content文件夹中存在object-cache.php文件，则使用他作为扩展的对象缓存
 			require_once ( WP_CONTENT_DIR . '/object-cache.php' );
 			if ( function_exists( 'wp_cache_init' ) ) {
 				wp_using_ext_object_cache( true );
@@ -524,7 +523,7 @@ function wp_start_object_cache() {
 
 /**
  * Redirect to the installer if WordPress is not installed.
- *
+ * 如果访问地址尚未安装WP，则启动安装程序，加载文件wp-admin/install.php、wp-includes/pluggable.php等
  * Dies with an error message when Multisite is enabled.
  *
  * @since 3.0.0
@@ -553,7 +552,7 @@ function wp_not_installed() {
 
 /**
  * Retrieve an array of must-use plugin files.
- *
+ * 返回包含在全局作用域中的必须使用的插件数组
  * The default directory is wp-content/mu-plugins. To change the default
  * directory manually, define `WPMU_PLUGIN_DIR` and `WPMU_PLUGIN_URL`
  * in wp-config.php.
@@ -622,7 +621,7 @@ function wp_get_active_and_valid_plugins() {
 
 /**
  * Set internal encoding.
- *
+ * 设置编码方式，默认使用UTF-8
  * In most cases the default internal encoding is latin1, which is
  * of no use, since we want to use the `mb_` functions for `utf-8` strings.
  *
@@ -639,7 +638,7 @@ function wp_set_internal_encoding() {
 
 /**
  * Add magic quotes to `$_GET`, `$_POST`, `$_COOKIE`, and `$_SERVER`.
- *
+ * 对$_GET、$_POST、 $_COOKIE和$_SERVER 添加魔术引用，并且将$_GET、$_POST合并成数组$_REQUEST
  * Also forces `$_REQUEST` to be `$_GET + $_POST`. If `$_SERVER`,
  * `$_COOKIE`, or `$_ENV` are needed, use those superglobals directly.
  *
@@ -666,7 +665,7 @@ function wp_magic_quotes() {
 
 /**
  * Runs just before PHP shuts down execution.
- *
+ * 在PHP结束运行前触发挂载点shutdown，然后执行函数wp_cache_close()
  * @since 1.2.0
  * @access private
  */
@@ -683,7 +682,7 @@ function shutdown_action_hook() {
 
 /**
  * Copy an object.
- *
+ * 克隆对象
  * @since 2.7.0
  * @deprecated 3.2.0
  *
@@ -697,7 +696,7 @@ function wp_clone( $object ) {
 
 /**
  * Whether the current request is for an administrative interface page.
- *
+ * 判断当前请求页面是否是后台页面，可以控制后台面板页面仅允许管理员访问
  * Does not check if the user is an administrator; current_user_can()
  * for checking roles and capabilities.
  *
@@ -718,7 +717,7 @@ function is_admin() {
 
 /**
  * Whether the current request is for a site's admininstrative interface.
- *
+ * 判断当前请求是否可以访问后台URL中含/wp-admin/的页面
  * e.g. `/wp-admin/`
  *
  * Does not check if the user is an administrator; current_user_can()
@@ -840,7 +839,7 @@ function get_current_network_id() {
 
 /**
  * Attempt an early load of translations.
- *
+ * 初始化过程中的错误提示信息，且可翻译成对应语言
  * Used for errors encountered during the initial loading process, before
  * the locale has been properly detected and loaded.
  *
@@ -1047,7 +1046,7 @@ function wp_is_ini_value_changeable( $setting ) {
 
 /**
  * Determines whether the current request is a WordPress Ajax request.
- *
+ * 确定当前请求是否为WordPress Ajax请求。
  * @since 4.7.0
  *
  * @return bool True if it's a WordPress Ajax request, false otherwise.
