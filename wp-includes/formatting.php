@@ -3967,7 +3967,12 @@ function esc_html( $text ) {
 
 /**
  * Escaping for HTML attributes.
- *
+ * 转换为实体字符
+ * '&' (ampersand) becomes '&amp;' 
+   '"' (double quote) becomes '&quot;' when ENT_NOQUOTES is not set. 
+   "'" (single quote) becomes '&#039;' only when ENT_QUOTES is set. 
+   '<' (less than) becomes '&lt;' 
+   '>' (greater than) becomes '&gt;'
  * @since 2.8.0
  *
  * @param string $text

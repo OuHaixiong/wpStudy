@@ -806,7 +806,7 @@ function get_user_meta($user_id, $key = '', $single = false) {
 
 /**
  * Update user meta field based on user ID.
- *
+ * 更新usermeta表中的用户设置，如果不存在meta_key则添加
  * Use the $prev_value parameter to differentiate between meta fields with the
  * same key and user ID.
  *
@@ -2561,7 +2561,7 @@ function wp_get_users_with_no_role( $site_id = null ) {
  * @return WP_User Current WP_User instance.
  */
 function _wp_get_current_user() {
-	global $current_user;
+	global $current_user; // 首次调用该方法；首次设定此变量$current_user【此方法会被多次调用】
 
 	if ( ! empty( $current_user ) ) {
 		if ( $current_user instanceof WP_User ) {

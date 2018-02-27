@@ -3979,7 +3979,7 @@ function _deprecated_file( $file, $version, $replacement = null, $message = '' )
 }
 /**
  * Mark a function argument as deprecated and inform when it has been used.
- * 标记评论状态
+ * 将函数参数标记为不建议使用的参数（已废弃的函数参数），并在使用时通知它。
  * This function is to be used whenever a deprecated function argument is used.
  * Before this function is called, the argument must be checked for whether it was
  * used by comparing it to its default value or evaluating whether it is empty.
@@ -4044,7 +4044,7 @@ function _deprecated_argument( $function, $version, $message = null ) {
 
 /**
  * Marks a deprecated action or filter hook as deprecated and throws a notice.
- *
+ * 记录一个不赞成（废弃）的行为或钩子并抛出一个提示
  * Use the {@see 'deprecated_hook_run'} action to get the backtrace describing where
  * the deprecated hook was called.
  *

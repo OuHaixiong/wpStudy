@@ -119,7 +119,8 @@ class WP {
 
 	/**
 	 * Parse request to find correct WordPress query.
-	 *
+	 * 解析查询
+	 * 加载rewrite解析URL，基于请求设置查询变量，同时也执行了一系列过滤器和动作用于进一步操作结果
 	 * Sets up the query variables based on the request. There are also many
 	 * filters and actions that can be used to further manipulate the result.
 	 *
@@ -150,7 +151,7 @@ class WP {
 		if ( is_array( $extra_query_vars ) ) {
 			$this->extra_query_vars = & $extra_query_vars;
 		} elseif ( ! empty( $extra_query_vars ) ) {
-			parse_str( $extra_query_vars, $this->extra_query_vars );
+			parse_str( $extra_query_vars, $this->extra_query_vars ); // 将查询解析到数组中
 		}
 		// Process PATH_INFO, REQUEST_URI, and 404 for permalinks.
 
@@ -249,7 +250,7 @@ class WP {
 				$this->matched_query = $query;
 
 				// Parse the query.
-				parse_str($query, $perma_query_vars);
+				parse_str($query, $perma_query_vars); // 将查询解析到数组中
 
 				// If we're processing a 404 request, clear the error var since we found something.
 				if ( '404' == $error )
@@ -375,7 +376,7 @@ class WP {
 
 	/**
 	 * Sends additional HTTP headers for caching, content type, etc.
-	 *
+	 * 该方法用于发送附加的HTTP头信息
 	 * Sets the Content-Type header. Sets the 'error' status (if passed) and optionally exits.
 	 * If showing a feed, it will also send Last-Modified, ETag, and 304 status if needed.
 	 *
@@ -506,7 +507,7 @@ class WP {
 
 	/**
 	 * Sets the query string property based off of the query variable property.
-	 *
+	 * 设置变量属性
 	 * The {@see 'query_string'} filter is deprecated, but still works. Plugins should
 	 * use the {@see 'request'} filter instead.
 	 *
@@ -539,7 +540,7 @@ class WP {
 
 	/**
 	 * Set up the WordPress Globals.
-	 *
+	 * 用于注册全局变量
 	 * The query_vars property will be extracted to the GLOBALS. So care should
 	 * be taken when naming global variables that might interfere with the
 	 * WordPress environment.
@@ -579,7 +580,7 @@ class WP {
 
 	/**
 	 * Set up the current user.
-	 *
+	 * 设置当前用户
 	 * @since 2.0.0
 	 */
 	public function init() {
@@ -588,7 +589,7 @@ class WP {
 
 	/**
 	 * Set up the Loop based on the query variables.
-	 *
+	 * 创建主循环
 	 * @since 2.0.0
 	 *
 	 * @global WP_Query $wp_the_query
@@ -596,12 +597,13 @@ class WP {
 	public function query_posts() {
 		global $wp_the_query;
 		$this->build_query_string();
-		$wp_the_query->query($this->query_vars);
+		$wp_the_query->query($this->query_vars); // 将用户的请求URL解析到变量后传入WP_Query类中query()方法继而调用该类中get_posts()方法获取相应请求对应的数据内容
  	}
 
  	/**
 	 * Set the Headers for 404, if nothing is found for requested URL.
-	 *
+	 * 处理404请求
+	 * 用于处理404错误，如果程序根据查询URL并未查询到数据则返回404；
 	 * Issue a 404 if a request doesn't match any posts and doesn't match
 	 * any object (e.g. an existing-but-empty category, tag, author) and a 404 was not already
 	 * issued, and if the request was not a search or the homepage.
@@ -723,6 +725,6 @@ class WP {
 		 *
 		 * @param WP $this Current WordPress environment instance (passed by reference).
 		 */
-		do_action_ref_array( 'wp', array( &$this ) );
+		do_action_ref_array( 'wp', array( &$this ) ); // 设置本对象作为wp钩子上的函数的参数(貌似在新版本中并未注册wp的函数)
 	}
 }

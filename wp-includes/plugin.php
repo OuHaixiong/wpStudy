@@ -1,6 +1,7 @@
 <?php
 /**
  * 插件相关函数
+ * 定义插件API，无执行代码，主要用于创建动作、过滤、挂载函数等
  * The plugin API is located in this file, which allows for creating actions
  * and filters and hooking functions, and methods. The functions or methods will
  * then be run when the action or filter is called.
@@ -42,7 +43,8 @@ if ( ! isset( $wp_current_filter ) )
 
 /**
  * Hook a function or method to a specific filter action.
- *
+ * 给特定的过滤器（也称挂载点）添加钩子函数（也称挂载函数）或方法；使用这个API可以将一个回调函数绑定（挂载）到过滤器（挂载点）上，插件也可以使用该函数指定特定的文本添加一个或多个处理函数，
+ * 以达到过滤或修改文本的目的；该函数并不检查函数或过滤器的存在性，这样有利于性能优化
  * WordPress offers filter hooks to allow plugins to modify
  * various types of internal data at runtime.
  *
@@ -101,7 +103,9 @@ if ( ! isset( $wp_current_filter ) )
  *                                  Lower numbers correspond with earlier execution,
  *                                  and functions with the same priority are executed
  *                                  in the order in which they were added to the action.
+ *                                  多个回调函数的过滤顺序
  * @param int      $accepted_args   Optional. The number of arguments the function accepts. Default 1.
+ *                                  回调函数接受的参数个数
  * @return true
  */
 function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 ) {
@@ -115,7 +119,7 @@ function add_filter( $tag, $function_to_add, $priority = 10, $accepted_args = 1 
 
 /**
  * Check if any filter has been registered for a hook.
- *
+ * 检查过滤器钩子（挂载点）上是否被挂载函数
  * @since 2.5.0
  *
  * @global array $wp_filter Stores all of the filters.
@@ -141,7 +145,7 @@ function has_filter($tag, $function_to_check = false) {
 
 /**
  * Call the functions added to a filter hook.
- *
+ * 调用挂载在过滤钩子上的所有函数并返回被处理过的值，若无挂载函数则返回值本身
  * The callback functions attached to filter hook $tag are invoked by calling
  * this function. This function can be used to create a new filter hook by
  * simply calling this function with the name of the new hook specified using
@@ -210,7 +214,7 @@ function apply_filters( $tag, $value ) {
 
 /**
  * Execute functions hooked on a specific filter hook, specifying arguments in an array.
- *
+ * 该函数类似于apply_filters()，不同之处在于它的参数是一个数组
  * @since 3.0.0
  *
  * @see apply_filters() This function is identical, but the arguments passed to the
@@ -251,7 +255,7 @@ function apply_filters_ref_array($tag, $args) {
 
 /**
  * Removes a function from a specified filter hook.
- *
+ * 删除指定过滤钩子上挂载的指定函数，常用于去除过滤钩上的默认挂载函数；它也是借助于全局变量$wp_filter将指定函数从变量中去除
  * This function removes a function attached to a specified filter hook. This
  * method can be used to remove default functions attached to a specific filter
  * hook and possibly replace them with a substitute.
@@ -285,7 +289,7 @@ function remove_filter( $tag, $function_to_remove, $priority = 10 ) {
 
 /**
  * Remove all of the hooks from a filter.
- *
+ * 将过滤器上所有挂载函数删除
  * @since 2.7.0
  *
  * @global array $wp_filter  Stores all of the filters
@@ -491,7 +495,7 @@ function did_action($tag) {
  */
 function do_action_ref_array($tag, $args) {
 	global $wp_filter, $wp_actions, $wp_current_filter;
-
+	
 	if ( ! isset($wp_actions[$tag]) )
 		$wp_actions[$tag] = 1;
 	else
@@ -512,7 +516,7 @@ function do_action_ref_array($tag, $args) {
 
 	if ( !isset($wp_filter['all']) )
 		$wp_current_filter[] = $tag;
-
+	
 	$wp_filter[ $tag ]->do_action( $args );
 
 	array_pop($wp_current_filter);

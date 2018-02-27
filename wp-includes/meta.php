@@ -127,7 +127,7 @@ function add_metadata($meta_type, $object_id, $meta_key, $meta_value, $unique = 
 /**
  * Update metadata for the specified object. If no value already exists for the specified object
  * ID and metadata key, the metadata will be added.
- *
+ * 更新metadata表（包括usermeta、postmeta）中的设置值，如果metadate key不存在则添加
  * @since 2.9.0
  *
  * @global wpdb $wpdb WordPress database abstraction object.

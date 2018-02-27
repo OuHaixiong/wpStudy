@@ -1,7 +1,7 @@
 <?php
 /**
  * WordPress Error API.
- *
+ * 定义WP_Error类，处理各种类型的错误提示
  * Contains the WP_Error class and the is_wp_error() function.
  *
  * @package WordPress

@@ -1,7 +1,7 @@
 <?php
 /**
  * Option API
- *
+ * 该文件提供跟option后台及默认选项相关的API，无执行代码
  * @package WordPress
  * @subpackage Option
  */
@@ -9,7 +9,7 @@
 /**
  * Retrieves an option value based on an option name.
  * 返回表options中的一条记录，即通过设置项，获取对应的值
- * 选项如：blogname、blogdescription、home、posts_per_page等
+ * 选项如：admin_email、blogname、blogdescription、home、posts_per_page等
  * If the option does not exist or does not have a value, then the return value
  * will be false. This is useful to check whether you need to install an option
  * and is commonly used during installation of plugin options and to test
@@ -166,7 +166,7 @@ function wp_protect_special_option( $option ) {
 
 /**
  * Print option value after sanitizing for forms.
- * 获取一个选项值，并进行格式处理（即对<>"'&进行转义）
+ * 获取一个选项值，并进行格式处理（即对<>"'&进行转义成实体字符）
  * @since 1.5.0
  *
  * @param string $option Option name.
@@ -177,7 +177,7 @@ function form_option( $option ) {
 
 /**
  * Loads and caches all autoloaded options, if available or all options.
- *
+ * 加载并缓存所有自动加载的选项
  * @since 2.2.0
  *
  * @global wpdb $wpdb WordPress database abstraction object.
@@ -230,7 +230,7 @@ function wp_load_alloptions() {
 
 /**
  * Loads and caches certain often requested site options if is_multisite() and a persistent cache is not being used.
- *
+ * 加载并缓存常用选项，如site_name、siteurl、site_admins等
  * @since 3.0.0
  *
  * @global wpdb $wpdb WordPress database abstraction object.
@@ -262,7 +262,7 @@ function wp_load_core_site_options( $network_id = null ) {
 
 /**
  * Update the value of an option that was already added.
- *
+ * 更新已存在的选项值，如果选项不存在则将添加选项值
  * You do not need to serialize values. If the value needs to be serialized, then
  * it will be serialized before it is inserted into the database. Remember,
  * resources can not be serialized or added as an option.
@@ -416,7 +416,7 @@ function update_option( $option, $value, $autoload = null ) {
 
 /**
  * Add a new option.
- *
+ * 增加一个新的选项
  * You do not need to serialize values. If the value needs to be serialized, then
  * it will be serialized before it is inserted into the database. Remember,
  * resources can not be serialized or added as an option.
@@ -522,7 +522,7 @@ function add_option( $option, $value = '', $deprecated = '', $autoload = 'yes' )
 
 /**
  * Removes option by name. Prevents removal of protected WordPress options.
- *
+ * 删除选项，避免删除受保护的WordPress选项
  * @since 1.2.0
  *
  * @global wpdb $wpdb WordPress database abstraction object.
@@ -593,7 +593,7 @@ function delete_option( $option ) {
 
 /**
  * Delete a transient.
- *
+ * 删除临时值
  * @since 2.8.0
  *
  * @param string $transient Transient name. Expected to not be SQL-escaped.
@@ -639,7 +639,7 @@ function delete_transient( $transient ) {
 
 /**
  * Get the value of a transient.
- *
+ * 获取临时值
  * If the transient does not exist, does not have a value, or has expired,
  * then the return value will be false.
  *
@@ -708,7 +708,7 @@ function get_transient( $transient ) {
 
 /**
  * Set/update the value of a transient.
- *
+ * 设置或更新临时值及生存时间等
  * You do not need to serialize values. If the value needs to be serialized, then
  * it will be serialized before it is set.
  *
@@ -874,7 +874,7 @@ function delete_expired_transients( $force_db = false ) {
 
 /**
  * Saves and restores user interface settings stored in a cookie.
- *
+ * 缓存用户界面设置，若不存在cookie则采用最后一次保存的设置
  * Checks if the current user-settings cookie is updated and stores it. When no
  * cookie exists (different browser used), adds the last saved cookie restoring
  * the settings.
@@ -924,22 +924,22 @@ function wp_user_settings() {
 
 /**
  * Retrieve user interface setting value based on setting name.
- *
+ * 获取用户设置
  * @since 2.7.0
  *
- * @param string $name    The name of the setting.
- * @param string $default Optional default value to return when $name is not set.
+ * @param string $name    The name of the setting. 选项名（设置名）
+ * @param string $default Optional default value to return when $name is not set. 默认值，如果不存在
  * @return mixed the last saved user setting or the default value/false if it doesn't exist.
  */
 function get_user_setting( $name, $default = false ) {
-	$all_user_settings = get_all_user_settings();
+	$all_user_settings = get_all_user_settings(); // 值来源于函数get_all_user_settings()
 
 	return isset( $all_user_settings[$name] ) ? $all_user_settings[$name] : $default;
 }
 
 /**
  * Add or update user interface setting.
- *
+ * 增加或更新（界面）用户设置
  * Both $name and $value can contain only ASCII letters, numbers and underscores.
  *
  * This function has to be used before any output has started as it calls setcookie().
@@ -963,7 +963,7 @@ function set_user_setting( $name, $value ) {
 
 /**
  * Delete user interface settings.
- *
+ * 删除用户（界面）设置
  * Deleting settings would reset them to the defaults.
  *
  * This function has to be used before any output has started as it calls setcookie().
@@ -998,7 +998,7 @@ function delete_user_setting( $names ) {
 
 /**
  * Retrieve all user interface settings.
- *
+ * 获取所有的用户（自定义）设置
  * @since 2.7.0
  *
  * @global array $_updated_user_settings
@@ -1038,7 +1038,7 @@ function get_all_user_settings() {
 
 /**
  * Private. Set all user interface settings.
- *
+ * （私有函数）设置所有的用户设置
  * @since 2.8.0
  * @access private
  *
@@ -1080,7 +1080,7 @@ function wp_set_all_user_settings( $user_settings ) {
 
 /**
  * Delete the user settings of the current user.
- *
+ * （重置）删除当前用户界面设置
  * @since 2.7.0
  */
 function delete_all_user_settings() {
@@ -1094,7 +1094,7 @@ function delete_all_user_settings() {
 
 /**
  * Retrieve an option value for the current network based on name of option.
- *
+ * 此函数已废弃，详见get_network_option
  * @since 2.8.0
  * @since 4.4.0 The `$use_cache` parameter was deprecated.
  * @since 4.4.0 Modified into wrapper for get_network_option()
@@ -1112,7 +1112,7 @@ function get_site_option( $option, $default = false, $deprecated = true ) {
 
 /**
  * Add a new option for the current network.
- *
+ * 详见add_network_option()
  * Existing options will not be updated. Note that prior to 3.3 this wasn't the case.
  *
  * @since 2.8.0
@@ -1130,7 +1130,7 @@ function add_site_option( $option, $value ) {
 
 /**
  * Removes a option by name for the current network.
- *
+ * 详见delete_network_option()
  * @since 2.8.0
  * @since 4.4.0 Modified into wrapper for delete_network_option()
  *
@@ -1145,7 +1145,7 @@ function delete_site_option( $option ) {
 
 /**
  * Update the value of an option that was already added for the current network.
- *
+ * 详见update_network_option()
  * @since 2.8.0
  * @since 4.4.0 Modified into wrapper for update_network_option()
  *
@@ -1161,7 +1161,7 @@ function update_site_option( $option, $value ) {
 
 /**
  * Retrieve a network's option value based on the option name.
- *
+ * 根据选项名获取选项值
  * @since 4.4.0
  *
  * @see get_option()
@@ -1287,7 +1287,7 @@ function get_network_option( $network_id, $option, $default = false ) {
 
 /**
  * Add a new network option.
- *
+ * 新增选项，选项已存在则覆盖，主要借助apply_filters()和do_action()函数实现
  * Existing options will not be updated.
  *
  * @since 4.4.0
@@ -1404,7 +1404,7 @@ function add_network_option( $network_id, $option, $value ) {
 
 /**
  * Removes a network option by name.
- *
+ * 删除选项，借助do_action()钩子原理实现
  * @since 4.4.0
  *
  * @see delete_option()
@@ -1491,7 +1491,7 @@ function delete_network_option( $network_id, $option ) {
 
 /**
  * Update the value of a network option that was already added.
- *
+ * 更新选项值，基于钩子原理
  * @since 4.4.0
  *
  * @see update_option()
