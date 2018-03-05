@@ -1,14 +1,14 @@
 <?php
 /**
  * Class for working with MO files
- *
+ * MO类；语言处理类MO，无执行代码；MO相关文件均用于程序语言翻译
  * @version $Id: mo.php 1157 2015-11-20 04:30:11Z dd32 $
  * @package pomo
  * @subpackage mo
  */
 
-require_once dirname(__FILE__) . '/translations.php';
-require_once dirname(__FILE__) . '/streams.php';
+require_once dirname(__FILE__) . '/translations.php'; // 加载本目录下translations.php文件
+require_once dirname(__FILE__) . '/streams.php'; // 加载本目录下streams.php文件
 
 if ( ! class_exists( 'MO', false ) ):
 class MO extends Gettext_Translations {

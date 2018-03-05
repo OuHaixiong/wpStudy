@@ -615,20 +615,20 @@ function get_attachment_template() {
 
 /**
  * Retrieve the name of the highest priority template file that exists.
- *
+ * 通过模板文件的文件名，返回模板文件的绝对路径，并加载模板文件，如果模板文件存在的话
  * Searches in the STYLESHEETPATH before TEMPLATEPATH and wp-includes/theme-compat
  * so that themes which inherit from a parent theme can just overload one file.
  *
  * @since 2.7.0
  *
- * @param string|array $template_names Template file(s) to search for, in order.
- * @param bool         $load           If true the template file will be loaded if it is found.
- * @param bool         $require_once   Whether to require_once or require. Default true. Has no effect if $load is false.
+ * @param string|array $template_names Template file(s) to search for, in order. 多个模板文件的文件名
+ * @param bool         $load           If true the template file will be loaded if it is found. 是否需要加载
+ * @param bool         $require_once   Whether to require_once or require. Default true. Has no effect if $load is false. 如果加载，是仅加载一次还是每次都加载
  * @return string The template filename if one is located.
  */
 function locate_template($template_names, $load = false, $require_once = true ) {
 	$located = '';
-	foreach ( (array) $template_names as $template_name ) {
+	foreach ( (array) $template_names as $template_name ) { // 循环查找模板文件的路径
 		if ( !$template_name )
 			continue;
 		if ( file_exists(STYLESHEETPATH . '/' . $template_name)) {
@@ -651,7 +651,8 @@ function locate_template($template_names, $load = false, $require_once = true ) 
 
 /**
  * Require the template file with WordPress environment.
- *
+ * 通过require方式，加载一个模板页
+ * 在模板中可以直接使用全局的一些变量；如：$posts、$wp_query、$wpdb等
  * The globals are set up for the template file to ensure that the WordPress
  * environment is available from within the function. The query variables are
  * also available.
@@ -670,8 +671,8 @@ function locate_template($template_names, $load = false, $require_once = true ) 
  * @global WP_Comment $comment
  * @global int        $user_ID
  *
- * @param string $_template_file Path to template file.
- * @param bool   $require_once   Whether to require_once or require. Default true.
+ * @param string $_template_file Path to template file. 模板文件的绝对路径
+ * @param bool   $require_once   Whether to require_once or require. Default true. 是否仅加载一次，默认true：是，false：否
  */
 function load_template( $_template_file, $require_once = true ) {
 	global $posts, $post, $wp_did_header, $wp_query, $wp_rewrite, $wpdb, $wp_version, $wp, $id, $comment, $user_ID;

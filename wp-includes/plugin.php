@@ -313,7 +313,7 @@ function remove_all_filters( $tag, $priority = false ) {
 
 /**
  * Retrieve the name of the current filter or action.
- *
+ * 检索当前过滤器或动作的名称并以return方式返回
  * @since 2.5.0
  *
  * @global array $wp_current_filter Stores the list of current filters with the current one last
@@ -382,7 +382,9 @@ function doing_action( $action = null ) {
 
 /**
  * Hooks a function on to a specific action.
- *
+ * 和add_filter是一样的（相当于别名）
+ * ，将函数挂载到一个特定的动作钩子（挂载点）上，它核心代码是使用的add_filters()函数，所以它与add_filters()函数基本一样（也是增加全局变量$wp_filter数组中一个元素），
+ * 只不过是为了在概念上帮助我们区别过滤器和动作；
  * Actions are the hooks that the WordPress core launches at specific points
  * during execution, or when specific events occur. Plugins can specify that
  * one or more of its PHP functions are executed at these points, using the
@@ -406,7 +408,8 @@ function add_action($tag, $function_to_add, $priority = 10, $accepted_args = 1) 
 
 /**
  * Execute functions hooked on a specific action hook.
- *
+ * 调用执行挂载在动作钩子上的所有函数，也可以使用该函数新增一个动作钩子；它与apply_filters()函数基本相同（代码变量、逻辑、所用函数等均一致），
+ * 不同之处在于该函数并不返回值，仅仅执行一个函数或方法
  * This function invokes all functions attached to action hook `$tag`. It is
  * possible to create new action hooks by simply calling this function,
  * specifying the name of the new hook using the `$tag` parameter.
@@ -462,7 +465,7 @@ function do_action($tag, $arg = '') {
 
 /**
  * Retrieve the number of times an action is fired.
- *
+ * 获取动作已执行的次数，原理是do_action()函数中$wp_actions[$tag]变量相关代码，每次执行该变量会记录执行次数；
  * @since 2.1.0
  *
  * @global array $wp_actions Increments the amount of times action was triggered.
@@ -481,7 +484,7 @@ function did_action($tag) {
 
 /**
  * Execute functions hooked on a specific action hook, specifying arguments in an array.
- *
+ * 该函数类似于do_action()，不同之处在于它的参数是一个数组
  * @since 2.1.0
  *
  * @see do_action() This function is identical, but the arguments passed to the
@@ -524,7 +527,7 @@ function do_action_ref_array($tag, $args) {
 
 /**
  * Check if any action has been registered for a hook.
- *
+ * 检测动作钩子上是否挂载有函数，核心代码是has_filter()，所以它相当于是has_filter一个别名
  * @since 2.5.0
  *
  * @see has_filter() has_action() is an alias of has_filter().
@@ -544,7 +547,7 @@ function has_action($tag, $function_to_check = false) {
 
 /**
  * Removes a function from a specified action hook.
- *
+ * 移除指定动作钩子上的函数，核心代码是remove_filter()，相当于是remove_filter()的一个别名
  * This function removes a function attached to a specified action hook. This
  * method can be used to remove default functions attached to a specific filter
  * hook and possibly replace them with a substitute.
@@ -562,7 +565,7 @@ function remove_action( $tag, $function_to_remove, $priority = 10 ) {
 
 /**
  * Remove all of the hooks from an action.
- *
+ * 将动作钩子上所有函数移除，核心代码是remove_all_filters()，相当于一个别名
  * @since 2.7.0
  *
  * @param string   $tag      The action to remove hooks from.
@@ -642,7 +645,7 @@ function do_action_deprecated( $tag, $args, $version, $replacement = false, $mes
 
 /**
  * Gets the basename of a plugin.
- *
+ * 根据插件目录返回文件在plugins目录后的路径
  * This method extracts the name of a plugin from its filename.
  *
  * @since 1.5.0
@@ -716,7 +719,7 @@ function wp_register_plugin_realpath( $file ) {
 
 /**
  * Get the filesystem directory path (with trailing slash) for the plugin __FILE__ passed in.
- *
+ * 其核心代码是借助PHP函数dirname()，用于返回路径中的目录部分（不包括文件名部分），参数$file为文件的__file__（PHP常量，返回当前文件路径）
  * @since 2.8.0
  *
  * @param string $file The filename of the plugin (__FILE__).
@@ -728,7 +731,8 @@ function plugin_dir_path( $file ) {
 
 /**
  * Get the URL directory path (with trailing slash) for the plugin __FILE__ passed in.
- *
+ * 核心代码是plugins_url()，用于返回文件的完整URL（注意跟路径不同，路径是针对服务器文件系统而言，URL是跟域名相当的），
+ * 如：http://www.ecdoer.com/wp-content/plugins/hello-dolly/hello.php
  * @since 2.8.0
  *
  * @param string $file The filename of the plugin (__FILE__).
@@ -740,7 +744,7 @@ function plugin_dir_url( $file ) {
 
 /**
  * Set the activation hook for a plugin.
- *
+ * 为插件设置激活钩子，钩子名格式为activate_后跟plugin_basename($file)
  * When a plugin is activated, the action 'activate_PLUGINNAME' hook is
  * called. In the name of this hook, PLUGINNAME is replaced with the name
  * of the plugin, including the optional subdirectory. For example, when the
@@ -763,7 +767,7 @@ function register_activation_hook($file, $function) {
 
 /**
  * Set the deactivation hook for a plugin.
- *
+ * 为插件设置失效钩子，钩子名格式为deactivate_后跟plugin_basename($file)
  * When a plugin is deactivated, the action 'deactivate_PLUGINNAME' hook is
  * called. In the name of this hook, PLUGINNAME is replaced with the name
  * of the plugin, including the optional subdirectory. For example, when the
@@ -786,7 +790,7 @@ function register_deactivation_hook($file, $function) {
 
 /**
  * Set the uninstallation hook for a plugin.
- *
+ * 为插件设置卸载钩子
  * Registers the uninstall hook that will be called when the user clicks on the
  * uninstall link that calls for the plugin to uninstall itself. The link won't
  * be active unless the plugin hooks into the action.

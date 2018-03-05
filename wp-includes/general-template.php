@@ -8,7 +8,7 @@
 
 /**
  * Load header template.
- *
+ * 加载一个头部模板
  * Includes the header template for a theme or if a name is specified then a
  * specialised header will be included.
  *
@@ -17,7 +17,7 @@
  *
  * @since 1.5.0
  *
- * @param string $name The name of the specialised header.
+ * @param string $name The name of the specialised header. 头部模板名的扩展名
  */
 function get_header( $name = null ) {
 	/**
@@ -38,7 +38,7 @@ function get_header( $name = null ) {
 
 	$templates[] = 'header.php';
 
-	locate_template( $templates, true );
+	locate_template( $templates, true ); // 把模板文件加载进来
 }
 
 /**
