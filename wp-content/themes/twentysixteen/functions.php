@@ -432,3 +432,20 @@ function twentysixteen_widget_tag_cloud_args( $args ) {
 	return $args;
 }
 add_filter( 'widget_tag_cloud_args', 'twentysixteen_widget_tag_cloud_args' );
+
+
+
+// 下面是后台的菜单项添加
+function options_admin_menu(){
+
+    global $_wp_last_object_menu;
+    $_wp_last_object_menu++;
+
+    add_menu_page( __( 'training organization'), __( 'training organization'), 'administrator', 'training-organization', 'customTrainingOrganization', 'dashicons-email', $_wp_last_object_menu ); // 添加一级菜单
+    
+    add_submenu_page( 'training-organization', '通用内容设置', '通用内容设置', 'administrator', 'custom-setting', 'customSetting' ); //  添加子菜单
+	
+}
+// 通过add_action来自动调用options_admin_menu函数
+add_action('admin_menu', 'options_admin_menu');
+include_once('setContent.php');
