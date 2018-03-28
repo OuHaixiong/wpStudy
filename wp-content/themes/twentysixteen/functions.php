@@ -449,3 +449,29 @@ function options_admin_menu(){
 // 通过add_action来自动调用options_admin_menu函数
 add_action('admin_menu', 'options_admin_menu');
 include_once('setContent.php');
+
+
+function create_color() { // 自定义分类法
+    $labels = array(
+            'name' => _x('color', 'taxonomy general name'),
+            'singular_name' => _x('color', 'taxonomy singular name'),
+            'search_items' => __('Search color'),
+            'all_items' => __('All colors'),
+            'parent_item' => __('Parent color'),
+            'parent_item_colon' => __('Parent color:'),
+            'edit_item' => __('Edit color'),
+            'update_item' => __('Update color'),
+            'add_new_item' => __('Add New color'),
+            'new_item_name' => __('New color Name'),
+    );
+    
+//     register_taxonomy('color', 'post', array( // 注册名为color的自定义分类，并关联post文章
+    register_taxonomy('color', array('post', 'page'), array(
+            'hierarchical' => true, // 分类法是否有等级,false:没有子分类，true：有子分类
+            'labels' => $labels // 分类的相关信息
+    ));
+    // register_taxonomy 函数就是用来创建一个分类法
+
+}
+add_action('init', 'create_color'); // 是指wordpress初始化时，会调用create_color这个函数
+

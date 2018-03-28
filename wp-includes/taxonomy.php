@@ -300,8 +300,8 @@ function is_taxonomy_hierarchical($taxonomy) {
  *
  * @global array $wp_taxonomies Registered taxonomies.
  *
- * @param string       $taxonomy    Taxonomy key, must not exceed 32 characters.
- * @param array|string $object_type Object type or array of object types with which the taxonomy should be associated.
+ * @param string       $taxonomy    Taxonomy key, must not exceed 32 characters.分类key（分类法的内部名）
+ * @param array|string $object_type Object type or array of object types with which the taxonomy should be associated.关联的文章类型（哪个文章类型使用这个分类法），如：array('post', 'page')
  * @param array|string $args        {
  *     Optional. Array or query string of arguments for registering a taxonomy.
  *
